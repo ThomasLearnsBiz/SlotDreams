@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="slot-machine">
+        <h1>Slot Machine</h1>
+        <div class="reels">
+            <div id="reel1" class="reel">🍒</div>
+            <div id="reel2" class="reel">🍋</div>
+            <div id="reel3" class="reel">🍉</div>
+        </div>
+        <div class="controls">
+            <div class="balance">Balance: $<span id="balance">100</span></div>
+            <div class="bet">
+                Bet Amount: $<input type="number" id="bet-amount" value="10" min="1">
+            </div>
+            <button id="spin-button">Spin</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

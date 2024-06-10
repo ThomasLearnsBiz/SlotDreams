@@ -1,0 +1,65 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const symbols = ['🍒', '🍋', '🍉', '🍇', '🍓', '⭐'];
+    let balance = 100;
+
+    const reel1 = document.getElementById('reel1');
+    const reel2 = document.getElementById('reel2');
+    const reel3 = document.getElementById('reel3');
+    const balanceDisplay = document.getElementById('balance');
+    const betAmountInput = document.getElementById('bet-amount');
+    const spinButton = document.getElementById('spin-button');
+    const resultDisplay = document.getElementById('result');
+
+    function getRandomSymbol() {
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    function spinReels() {
+        const betAmount = parseInt(betAmountInput.value);
+
+        if (isNaN(betAmount) || betAmount < 1 || betAmount > balance) {
+            resultDisplay.textContent = 'Invalid bet amount!';
+            return;
+        }
+
+        balance -= betAmount;
+
+        const symbol1 = getRandomSymbol();
+        const symbol2 = getRandomSymbol();
+        const symbol3 = getRandomSymbol();
+
+        reel1.textContent = symbol1;
+        reel2.textContent = symbol2;
+        reel3.textContent = symbol3;
+
+        // Calculate winnings based on the configuration
+        if (symbol1 === symbol2 && symbol2 === symbol3) {
+            // Large Win
+            if (symbol1 === '⭐') {
+                const winnings = betAmount * 1000;
+                balance += winnings;
+                resultDisplay.textContent = `Jackpot! You won $${winnings}!`;
+            } else {
+                const winnings = betAmount * 100;
+                balance += winnings;
+                resultDisplay.textContent = `Large win! You won $${winnings}!`;
+            }
+        } else if (symbol1 === symbol2 || symbol2 === symbol3 || symbol1 === symbol3) {
+            // Small Win
+            const winnings = betAmount * 2;
+            balance += winnings;
+            resultDisplay.textContent = `Small win! You won $${winnings}!`;
+        } else if (Math.random() < 1 / 50) {
+            // Medium Win (random chance)
+            const winnings = betAmount * 10;
+            balance += winnings;
+            resultDisplay.textContent = `Medium win! You won $${winnings}!`;
+        } else {
+            resultDisplay.textContent = 'You lost! Try again.';
+        }
+
+        balanceDisplay.textContent = balance;
+    }
+
+    spinButton.addEventListener('click', spinReels);
+});
